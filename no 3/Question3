@@ -1,0 +1,14 @@
+create a library management system in java
+that can efficiently manage the borrowing and returning books the system will hgave the following primary calsses
+
+book, it has attributes of tite, author isbn and status of avalaibilty
+it has the method to check the status if its borrowed or not
+
+member atributtes = member ID, name and contact information
+
+libararian attributes
+ they can add new book remove existing ones, and manage memeber accounts
+
+ transaction = record the boorowing and returing books, it has attributes like transaction ID, member ID, book ISBN, and transaction date
+
+ the class diagaram will illustrate the relation betweemn these attributes including asscoiation and inheritance
