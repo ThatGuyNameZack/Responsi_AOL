@@ -1,0 +1,15 @@
+public class FindError{
+    public static void main(String[] args){
+        int number = 10;
+        System.out.println("the result of the number "+ number);
+
+        try{
+        int result = number /0; //this doesnt work it will make an ArithmaticException
+        System.out.println("the results"+ result);
+
+
+    }catch(ArithmeticException e){
+        System.out.println("are you dumb or some shit you cant divide zero");
+        }
+    }
+}
