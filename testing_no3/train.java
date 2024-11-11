@@ -1,65 +1,99 @@
 
 
-class books{
+class Books{
    private String book_title;
    private String author;
-   private String isbn;
-   public boolean Available;
+   private String Isbn;
+   public boolean StatusAvailable;
 
 
-    public books(String book_title, String author, String isbn)
+    public Books(String book_title, String author, String Isbn)
     {
-        this.book_title = title;
+        this.book_title = book_title;
         this.author = author;
-        this.isbn = isbn;
-        this.Available = true; //it will be avalaible by default
+        this.Isbn = Isbn;
+        this.StatusAvailable = true; //it will be avalaible by default
     }
 
-    public boolean Avalaible(Available){
+    public boolean isAvailable(){
         return Available;
     }
 
-    public void setAvailable(boolean avalaible){
-        this.Available = Available; //this is a setting in default hat i wont change., bascially making status avalible
+    public void setAvailable(boolean StatusAvailable){
+        this.StatusAvailable = StatusAvailable; //this is a setting in default hat i wont change., bascially making status avalible
     }
 
-    public String getIsbn(String isbn){
-        return isbn; //when you pick a book you get the ISBN
+    public String getIsbn(){
+        return Isbn; //when you pick a book you get the ISBN
     }
     //we'll also add an override
     @Override
         public String toString(){
-           return "books{"+"book_title= '"+book_title+ '\''+ "author= " + author + '\'' + "isbn= " + isbn + '\'' + "Avalible" + Available + '\'''}';
+            return "Books{" + "book_title='" + book_title + '\'' + ", author='" + author + '\'' + ", Isbn='" + Isbn + '\'' + ", Available=" + StatusAvailable + '}';
+
         }
     }  
 
 
-class member{ //member will connect to librarian because its basically a member
+class Members{ //member will connect to librarian because its basically a member
     private int MemberID;
     private String name;
     private int contactInfo;
 
 
-    public member(int MemberID, String name, int contactInfo){
+    public Members(int MemberID, String name, int contactInfo){
         this.MemberID = MemberID;
         this.name = name;
         this.contactInfo = contactInfo;
     }
 
-    public getMemberID(int MemberID){
+    public int getMemberID(){
         return MemberID;
     }
 
     //we'll add an override if theres a problem
     @Override
         public String toString(){
-            return "member{"+"MemberID= " + MemberID + '\'' + "name= "+ name + '\'' + "contactInfo= " + contactInfo + '\'''}'
+            return "Member{" + "MemberID=" + MemberID + ", name='" + name + '\'' + ", contactInfo=" + contactInfo + '}';
+
         }
 
 }
-    class librarian extends member{
+    class librarian extends Member{
         private int librarianID;
-    
+        
+        public librarian(int librarianID, int MemberID, String name, int contactInfo){
+            super(MemberID, name, contactInfo);
+            this.librarianID = librarianID;
+        }
+
+        public void addNewBook(Map<String, Books>Books, Books book){ //we'll add a new book basically this uses hashmap we make a new string of book, in the class books
+                Books.put(book.getIsbn(), book);                                    //in the public Lbook we will add a new book in the public class
+                System.out.println("a new Book added"+book);
+        }
+
+        public void removeBook(Map<String, Books>Books, String Isbn){
+            Books removedBook = Books.remove(Isbn);
+            if(removedBook!= null){
+                System.out.println("Book removed" +book);
+            }else{
+                System.out.println("did not found"+ isbn);
+            }
+        }
+
+        public void addMember(Map<Integer, Members>Members, Members member){
+            Members.put(member.getMemberID(), member);
+            System.out.println("a new member has been added" +member);
+        }
+
+        public void removeMember(Map<Integer, Members>Members, int MemberID){
+            Members removedMember = member.remove(MemberID);
+            if(removedMember != null){
+                System.out.println("removed member" +member);
+            }else{
+                System.out.println("the member "+ MemberID + "is not found");
+            }
+        }
     }
 
 
@@ -69,4 +103,22 @@ class member{ //member will connect to librarian because its basically a member
 class Transaction{
     private int transactionID;
     private int transactionDate;
+    private String isbn;
+    private int MemberID;
+
+    public Transaction(int transactionID, int transactionDate, String isbn, int MemberID){
+        this.transactionID = transactionID;
+        this.transactionDate = transactionDate;
+        this.isbn = isbn;
+        this.MemberID = MemberID;
+
+    }
+
+    public borrowBook(Map<Transaction)
+
+
+
+
+
+
 }
