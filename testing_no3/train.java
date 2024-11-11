@@ -16,7 +16,7 @@ class Books{
     }
 
     public boolean isAvailable(){
-        return Available;
+        return StatusAvailable;
     }
 
     public void setAvailable(boolean StatusAvailable){
@@ -41,7 +41,7 @@ class Members{ //member will connect to librarian because its basically a member
     private int contactInfo;
 
 
-    public Members(int MemberID, String name, int contactInfo){
+    public Member(int MemberID, String name, int contactInfo){
         this.MemberID = MemberID;
         this.name = name;
         this.contactInfo = contactInfo;
@@ -59,10 +59,10 @@ class Members{ //member will connect to librarian because its basically a member
         }
 
 }
-    class librarian extends Member{
+    class Librarian extends Member{
         private int librarianID;
         
-        public librarian(int librarianID, int MemberID, String name, int contactInfo){
+        public Librarian(int librarianID, int MemberID, String name, int contactInfo){
             super(MemberID, name, contactInfo);
             this.librarianID = librarianID;
         }
@@ -75,19 +75,19 @@ class Members{ //member will connect to librarian because its basically a member
         public void removeBook(Map<String, Books>Books, String Isbn){
             Books removedBook = Books.remove(Isbn);
             if(removedBook!= null){
-                System.out.println("Book removed" +book);
+                System.out.println("Book removed" +removedBook);
             }else{
                 System.out.println("did not found"+ isbn);
             }
         }
 
-        public void addMember(Map<Integer, Members>Members, Members member){
+        public void addMember(Map<Integer, Members>Members, Member member){
             Members.put(member.getMemberID(), member);
             System.out.println("a new member has been added" +member);
         }
 
         public void removeMember(Map<Integer, Members>Members, int MemberID){
-            Members removedMember = member.remove(MemberID);
+            Members removedMember = Members.remove(MemberID);
             if(removedMember != null){
                 System.out.println("removed member" +member);
             }else{
@@ -114,7 +114,33 @@ class Transaction{
 
     }
 
-    public borrowBook(Map<Transaction)
+    public void borrowBook(Map<String, Books> Books, String Isbn, <Integer, Members>Members, int MemberID){
+        Books book = Books.get(Isbn);
+        Members Member = Members.get(MemberID);
+        
+        if(book != null && member != null && book.isAvailable()){
+            Book.setAvailable(false);
+            System.out.println("Book"+ book + "borrowed by" + MemberID);
+        } else {
+            System.out.println("The book is not here");
+        }
+    public void returnBook(Map<String, Books> Books, String Isbn, <Integer, Members> Members, int MemberID){
+        Books book = Books.get(Isbn);
+        Members Member = Members.get(MemberID);
+
+        if(book != null && member != null && book.isAvailable()){
+          Book.setAvailable(true);
+          System.out.println("Book" + book + "Returned by" + MemberID);
+        }else{
+            System.out.println("The book is not found");
+        }
+
+
+    }
+        
+
+
+    }
 
 
 
