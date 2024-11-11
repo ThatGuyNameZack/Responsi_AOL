@@ -153,7 +153,7 @@ class LibrarySystem:
 # Example usage
 library_system = LibrarySystem("Library of Dojima", "L001")
 
-# Add books to the library
+# Add and remove books to the library
 library_system.librarian.add_book(library_system.books, "Python Programming")
 library_system.librarian.add_book(library_system.books, "Data Science with Python")
 library_system.librarian.remove_book(library_system.books, "Python Programming")
