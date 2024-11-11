@@ -1,11 +1,12 @@
-
+import java.util.HashMap;
+import java.util.Map;
 
 class Books{
    private String book_title;
    private String author;
    private String Isbn;
    public boolean StatusAvailable;
-
+ 
 
     public Books(String book_title, String author, String Isbn)
     {
@@ -39,9 +40,9 @@ class Members{ //member will connect to librarian because its basically a member
     private int MemberID;
     private String name;
     private int contactInfo;
+ 
 
-
-    public Member(int MemberID, String name, int contactInfo){
+    public Members(int MemberID, String name, int contactInfo){
         this.MemberID = MemberID;
         this.name = name;
         this.contactInfo = contactInfo;
@@ -77,7 +78,7 @@ class Members{ //member will connect to librarian because its basically a member
             if(removedBook!= null){
                 System.out.println("Book removed" +removedBook);
             }else{
-                System.out.println("did not found"+ isbn);
+                System.out.println("did not found"+ Isbn);
             }
         }
 
@@ -89,7 +90,7 @@ class Members{ //member will connect to librarian because its basically a member
         public void removeMember(Map<Integer, Members>Members, int MemberID){
             Members removedMember = Members.remove(MemberID);
             if(removedMember != null){
-                System.out.println("removed member" +member);
+                System.out.println("removed member" +removedMember);
             }else{
                 System.out.println("the member "+ MemberID + "is not found");
             }
@@ -103,34 +104,35 @@ class Members{ //member will connect to librarian because its basically a member
 class Transaction{
     private int transactionID;
     private int transactionDate;
-    private String isbn;
+    private String Isbn;
     private int MemberID;
 
-    public Transaction(int transactionID, int transactionDate, String isbn, int MemberID){
+    public Transaction(int transactionID, int transactionDate, String Isbn, int MemberID){
         this.transactionID = transactionID;
         this.transactionDate = transactionDate;
-        this.isbn = isbn;
+        this.Isbn = Isbn;
         this.MemberID = MemberID;
 
     }
 
-    public void borrowBook(Map<String, Books> Books, String Isbn, <Integer, Members>Members, int MemberID){
+    public void borrowBook(Map<String, Books> Books, String Isbn, Map<Integer, Members>Members, int MemberID){
         Books book = Books.get(Isbn);
-        Members Member = Members.get(MemberID);
+        Members member = Members.get(MemberID);
         
         if(book != null && member != null && book.isAvailable()){
-            Book.setAvailable(false);
-            System.out.println("Book"+ book + "borrowed by" + MemberID);
+            book.setAvailable(false);
+            System.out.println("Book"+ book + "borrowed by" + member.getMemberID());
         } else {
             System.out.println("The book is not here");
         }
-    public void returnBook(Map<String, Books> Books, String Isbn, <Integer, Members> Members, int MemberID){
+    }
+    public void returnBook(Map<String, Books> Books, String Isbn, Map<Integer, Members> Members, int MemberID){
         Books book = Books.get(Isbn);
-        Members Member = Members.get(MemberID);
+        Members member = Members.get(MemberID);
 
         if(book != null && member != null && book.isAvailable()){
-          Book.setAvailable(true);
-          System.out.println("Book" + book + "Returned by" + MemberID);
+          book.setAvailable(true);
+          System.out.println("Book" + book + "Returned by" + member.getMemberID());
         }else{
             System.out.println("The book is not found");
         }
@@ -140,7 +142,34 @@ class Transaction{
         
 
 
+    public class Main {
+        public static void main(String[] args) {
+            // Create maps for Books and Members
+            Map<String, Books> Books = new HashMap<>();
+            Map<Integer, Members> Members = new HashMap<>();
+    
+            // Add some sample books and members
+            Books.put("1234", new Books("Book Title", "Author Name", "1234"));
+            Members.put(1, new Members(1, "Member Name", 123456789));
+    
+            // Create librarian
+            Librarian librarian = new Librarian(101, 1, "Librarian Name", 987654321);
+    
+            // Test adding/removing books and members
+            librarian.addNewBook(Books, new Books("New Book", "New Author", "5678"));
+            librarian.removeBook(Books, "1234");
+    
+            librarian.addMember(Members, new Members(2, "Another Member", 112233445));
+            librarian.removeMember(Members, 1);
+    
+            // Create a transaction and test borrowing/returning books
+            Transaction transaction = new Transaction(1, 20241111, "5678", 1);
+            transaction.borrowBook(Books, "5678", Members, 1);
+            transaction.returnBook(Books, "5678", Members, 1);
+        }
     }
+
+    
 
 
 
